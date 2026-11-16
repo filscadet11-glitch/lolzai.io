@@ -3,23 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f7f8f4" />
+    <meta name="theme-color" content="#f4f3ee" />
     <meta name="description" content="A calmer way to track spending, build better habits, and feel good about your money." />
     <title>Pennywise — make room for what matters</title>
     <style>
       :root {
         color-scheme: light;
-        --ink: #172b26;
-        --muted: #71817b;
-        --paper: #f7f8f4;
+        --ink: #1c2736;
+        --muted: #6d7986;
+        --paper: #f4f3ee;
         --white: #fff;
-        --line: #e7ece7;
-        --green: #2e735b;
-        --green-dark: #205b46;
-        --mint: #e2f0e9;
-        --lime: #d7ed9f;
-        --orange: #e8a36f;
-        --shadow: 0 18px 55px rgba(32, 63, 51, 0.08);
+        --line: #e5e8e7;
+        --green: #315d7e;
+        --green-dark: #23465f;
+        --mint: #e7eef0;
+        --lime: #d9e36f;
+        --orange: #d58c64;
+        --shadow: 0 20px 60px rgba(36, 54, 72, 0.11);
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
 
@@ -164,6 +164,7 @@
       .expense-form { display: grid; gap: 14px; margin-top: 23px; }
       .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
       .field { display: grid; gap: 6px; color: #58685f; font-size: 11px; font-weight: 650; }
+      .optional-note { color: #8a9690; font-size: 10px; font-weight: 450; }
       .field input, .field select { width: 100%; padding: 10px 11px; border: 1px solid #dfe6de; border-radius: 8px; outline: none; background: white; color: var(--ink); font-size: 12px; }
       .field input:focus, .field select:focus { border-color: #6b9b7c; box-shadow: 0 0 0 3px rgba(107, 155, 124, .13); }
       .form-submit { width: 100%; margin-top: 3px; }
@@ -213,6 +214,117 @@
       @media (prefers-reduced-motion: reduce) {
         *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
       }
+
+      .hero {
+        grid-template-columns: minmax(250px, .75fr) minmax(0, 1.45fr);
+        align-items: center;
+        justify-items: stretch;
+        gap: clamp(24px, 4vw, 58px);
+        padding: 37px 0 88px;
+        text-align: left;
+      }
+      .hero-copy-block { max-width: 430px; }
+      .hero .eyebrow { font-size: 10px; letter-spacing: 1.35px; }
+      .hero h1 { margin: 20px 0 17px; font-size: clamp(43px, 5vw, 61px); line-height: 1.02; letter-spacing: -3.4px; }
+      .hero h1 span { color: var(--green); }
+      .hero-copy { max-width: 390px; font-size: 16px; line-height: 1.75; }
+      .hero-actions { justify-content: flex-start; flex-wrap: wrap; gap: 13px 17px; margin-top: 24px; }
+      .hero-actions .button { padding: 13px 15px; font-size: 12px; }
+      .trust-note { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 18px; font-size: 10px; }
+      .trust-note span:first-child { color: #638849; font-weight: 800; }
+      .app-preview { min-width: 0; margin: 0; padding: 8px; border-color: #e4e6df; border-radius: 17px; background: #fff; box-shadow: 0 24px 70px rgba(43, 58, 65, .12); }
+      .app-window { min-height: 445px; grid-template-columns: 163px minmax(0, 1fr); border-color: #e9ebe7; border-radius: 11px; }
+      .app-sidebar { padding: 20px 11px; border-color: #e5e7e2; background: #202c3b; color: #f3f4ed; }
+      .sidebar-brand { gap: 7px; margin: 0 0 29px 5px; font-size: 12px; }
+      .sidebar-brand .brand-mark { width: 23px; height: 23px; border-radius: 7px; background: var(--lime); color: #273443; }
+      .sidebar-brand .brand-mark svg { width: 13px; height: 13px; }
+      .side-label { color: #a7b3bd; font-size: 9px; }
+      .side-nav { gap: 6px; }
+      .side-nav a { gap: 9px; padding: 10px 8px; color: #c1cbd2; font-size: 11px; }
+      .side-nav a.active { background: #35485a; color: #edf4d1; }
+      .sidebar-bottom { margin-top: 35px; background: #2b3a49; }
+      .sidebar-bottom strong { color: #f0f3e7; font-size: 10px; }
+      .sidebar-bottom p { color: #bdc9ce; }
+      .app-main { padding: 20px 19px; }
+      .app-topbar { margin-bottom: 15px; }
+      .app-topbar h2 { font-size: 15px; letter-spacing: -.3px; }
+      .app-topbar p { font-size: 10px; }
+      .period-select { padding: 8px 9px; border-radius: 7px; font-size: 10px; }
+      .add-button { padding: 9px 10px; border-radius: 7px; font-size: 10px; }
+      .summary-grid { gap: 8px; }
+      .summary-card { padding: 11px; border-color: #e8eae6; border-radius: 9px; }
+      .summary-card:first-child { border-color: #263d50; background: #263d50; color: #fff; }
+      .summary-card:first-child .summary-label, .summary-card:first-child .summary-foot { color: #c8d2d7; }
+      .summary-card:first-child .summary-label svg { color: var(--lime); }
+      .summary-card:first-child .summary-value { color: #fff; }
+      .summary-label { font-size: 10px; }
+      .summary-value { margin-top: 10px; font-size: clamp(17px, 2vw, 21px); }
+      .summary-foot { font-size: 9px; }
+      .dashboard-grid { grid-template-columns: minmax(0, 1.15fr) minmax(185px, .85fr); gap: 9px; margin-top: 9px; }
+      .panel { padding: 12px; border-color: #e8eae6; border-radius: 9px; }
+      .panel-heading h3 { font-size: 11px; }
+      .panel-heading span { font-size: 9px; }
+      .chart-total { margin-top: 10px; font-size: 19px; }
+      .chart-caption { font-size: 9px; }
+      .chart { height: 91px; }
+      .chart-labels { font-size: 8px; }
+      .category-list { gap: 11px; margin-top: 15px; }
+      .category-row { width: 100%; padding: 2px; border: 0; border-radius: 7px; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+      .category-row:hover, .category-row.selected { background: #f0f4ee; }
+      .category-row:focus-visible, a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible { outline: 3px solid #d5df69; outline-offset: 3px; }
+      .category-icon { width: 25px; height: 25px; border-radius: 7px; background: #e9eff0; color: #45677e; }
+      .category-name { color: #3e4f60; font-size: 10px; }
+      .category-bar { height: 4px; background: #e9ece8; }
+      .category-bar span { background: #4b8193; }
+      .category-amount { color: #354758; font-size: 10px; }
+      .transactions-panel { margin-top: 9px; }
+      .transactions-head { padding: 12px 13px 9px; }
+      .transactions-head h3 { font-size: 11px; }
+      .transactions-head a { font-size: 9px; }
+      .transaction { grid-template-columns: 25px minmax(0,1fr) auto; gap: 8px; padding: 8px 13px; }
+      .transaction-name { color: #354657; font-size: 10px; }
+      .transaction-meta { font-size: 9px; }
+      .transaction-amount { color: #2b3d4c; font-size: 10px; }
+      .transaction-delete { width: 22px; height: 22px; }
+      .app-footnote { margin-top: 9px; font-size: 9px; }
+      .feature-card { border-color: #e3e5de; background: rgba(255,255,255,.75); }
+      .feature-icon { background: #e8eef0; color: var(--green); }
+      .pricing-section { background: #ecefe9; }
+      .price-card { border-color: #e0e5e1; }
+      .price-card.featured { border-color: #315d7e; box-shadow: 0 14px 36px rgba(49, 93, 126, .12); }
+      .popular-label, .price-card.featured .plan-button { background: #315d7e; }
+      .price-card.featured .plan-button { border-color: #315d7e; }
+      .plan-features svg { color: #567d88; }
+
+      @media (max-width: 1050px) {
+        .hero { grid-template-columns: minmax(230px, .7fr) minmax(0, 1.3fr); gap: 25px; }
+        .app-window { grid-template-columns: 145px minmax(0, 1fr); }
+        .app-main { padding: 16px 13px; }
+        .dashboard-grid { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 760px) {
+        .hero { grid-template-columns: 1fr; gap: 28px; padding: 38px 0 62px; text-align: center; }
+        .hero-copy-block { max-width: 570px; margin: 0 auto; }
+        .hero h1 { font-size: clamp(42px, 9vw, 58px); letter-spacing: -2.7px; }
+        .hero-copy { margin: 0 auto; }
+        .hero-actions { justify-content: center; }
+        .trust-note { justify-content: center; }
+        .app-preview { width: 100%; }
+        .app-window { grid-template-columns: 1fr; }
+        .app-sidebar { display: none; }
+        .app-main { padding: 19px 15px; }
+        .dashboard-grid { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 440px) {
+        .hero-actions { flex-direction: column; gap: 12px; }
+        .app-topbar { align-items: flex-start; gap: 8px; }
+        .app-tools { flex-direction: column-reverse; align-items: flex-end; }
+        .summary-grid { gap: 6px; }
+        .summary-card { padding: 9px 7px; }
+        .summary-label { font-size: 8px; }
+        .summary-value { font-size: 15px; }
+        .summary-foot { font-size: 7px; }
+      }
     </style>
   </head>
   <body>
@@ -226,22 +338,22 @@
         <a href="#features">Features</a>
         <a href="#pricing">Pricing</a>
       </nav>
-      <a class="header-cta" href="#tracker">Try it free <span aria-hidden="true">→</span></a>
+      <button class="header-cta" id="header-add" type="button">Add transaction <span aria-hidden="true">+</span></button>
     </header>
 
     <main>
-      <section class="hero shell">
-        <div class="eyebrow"><span class="eyebrow-dot"></span> A little more mindful, every day</div>
-        <h1>Make room for<br /><span>what matters.</span></h1>
-        <p class="hero-copy">A refreshingly simple way to see where your money goes, find your rhythm, and feel good about what comes next.</p>
-        <div class="hero-actions">
-          <a class="button" href="#tracker">Explore your dashboard <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          <a class="text-link" href="#pricing">See simple pricing ↓</a>
+      <section class="hero shell" id="tracker">
+        <div class="hero-copy-block">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> Money, without the mystery</div>
+          <h1>Make sense of<br /><span>every dollar.</span></h1>
+          <p class="hero-copy">See what comes in, what goes out, and what you can do next. A simple money habit, built around you.</p>
+          <div class="hero-actions">
+            <button class="button" id="hero-add" type="button">Add your first transaction <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <a class="text-link" href="#pricing">Explore plans <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="trust-note"><span aria-hidden="true">✓</span> Free to start <span aria-hidden="true">·</span> No bank connection <span aria-hidden="true">·</span> Private by design</div>
         </div>
-        <div class="trust-note">Free to start · No bank connection needed · Your data stays on this device</div>
-      </section>
-
-      <section class="app-preview shell" id="tracker" aria-label="Interactive expense tracker preview">
+        <div class="app-preview" aria-label="Interactive expense tracker">
         <div class="app-window">
           <aside class="app-sidebar" aria-label="Dashboard navigation">
             <div class="sidebar-brand">
@@ -252,7 +364,8 @@
             <nav class="side-nav">
               <a class="active" href="#tracker"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="4" width="6" height="7" rx="1" stroke="currentColor" stroke-width="1.7"/><rect x="14" y="4" width="6" height="4" rx="1" stroke="currentColor" stroke-width="1.7"/><rect x="14" y="12" width="6" height="8" rx="1" stroke="currentColor" stroke-width="1.7"/><rect x="4" y="15" width="6" height="5" rx="1" stroke="currentColor" stroke-width="1.7"/></svg>Overview</a>
               <a href="#transactions"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 4h10M7 8h10M7 12h10M7 16h6M5 3v18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Transactions</a>
-              <a href="#features"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 19V9m5 10V5m5 14v-7m5 7V3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Insights</a>
+              <a href="#categories"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.7"/><path d="M12 4v8h8M12 12 6.5 18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>Categories</a>
+              <a href="#reports"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 19V9m5 10V5m5 14v-6m6 6V3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Reports</a>
             </nav>
             <div class="sidebar-bottom">
               <strong>A little progress adds up.</strong>
@@ -294,31 +407,32 @@
             </div>
 
             <div class="dashboard-grid">
-              <article class="panel">
-                <div class="panel-heading"><h3>Spending overview</h3><span id="chart-period">This month</span></div>
+              <article class="panel" id="reports">
+                <div class="panel-heading"><h3>Cumulative spending</h3><span id="chart-period">This month</span></div>
                 <p class="chart-total" id="chart-total">$0.00</p>
-                <p class="chart-caption">Total expenses for the selected period</p>
-                <svg class="chart" viewBox="0 0 520 105" preserveAspectRatio="none" role="img" aria-label="Illustrative spending trend">
+                <p class="chart-caption">Your spending, added up over time</p>
+                <svg class="chart" viewBox="0 0 520 105" preserveAspectRatio="none" role="img" aria-label="Cumulative expense chart">
                   <defs><linearGradient id="chart-fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#8ab59a" stop-opacity=".24"/><stop offset="1" stop-color="#8ab59a" stop-opacity="0"/></linearGradient></defs>
-                  <path d="M0 79 C35 69 44 76 72 60 S120 68 151 53 S194 56 222 44 S258 58 287 38 S328 48 359 30 S407 46 436 23 S487 31 520 12 L520 105 L0 105Z" fill="url(#chart-fill)"/>
-                  <path d="M0 79 C35 69 44 76 72 60 S120 68 151 53 S194 56 222 44 S258 58 287 38 S328 48 359 30 S407 46 436 23 S487 31 520 12" fill="none" stroke="#6b9b7c" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
                   <path d="M0 100H520M0 68H520M0 36H520" stroke="#edf1ec" stroke-width="1" vector-effect="non-scaling-stroke"/>
-                  <circle cx="436" cy="23" r="4" fill="white" stroke="#6b9b7c" stroke-width="2" vector-effect="non-scaling-stroke"/>
+                  <path id="spending-chart-area" d="M0 96L520 96L520 105L0 105Z" fill="url(#chart-fill)"/>
+                  <path id="spending-chart-line" d="M0 96L520 96" fill="none" stroke="#6b9b7c" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle id="spending-chart-dot" cx="520" cy="96" r="4" fill="white" stroke="#6b9b7c" stroke-width="2" vector-effect="non-scaling-stroke"/>
                 </svg>
-                <div class="chart-labels"><span>Nov 1</span><span>Nov 8</span><span>Nov 15</span><span>Nov 22</span><span>Nov 30</span></div>
+                <div class="chart-labels" id="chart-labels"><span></span><span></span><span></span><span></span><span></span></div>
               </article>
-              <article class="panel">
+              <article class="panel" id="categories">
                 <div class="panel-heading"><h3>Where it goes</h3><span>By category</span></div>
                 <div class="category-list" id="category-list"></div>
               </article>
             </div>
 
             <article class="panel transactions-panel" id="transactions">
-              <div class="panel-heading transactions-head"><h3>Recent transactions</h3><a href="#transactions" id="clear-filter">View all</a></div>
+              <div class="panel-heading transactions-head"><h3 id="transactions-title">Recent transactions</h3><a href="#transactions" id="clear-filter">View all</a></div>
               <div class="transaction-list" id="transaction-list" aria-live="polite"></div>
             </article>
             <p class="app-footnote">Your entries are saved in this browser only. No account or bank connection needed.</p>
           </div>
+        </div>
         </div>
       </section>
 
@@ -428,8 +542,8 @@
           <button class="close-dialog" type="button" aria-label="Close dialog">×</button>
         </div>
         <form class="expense-form" id="transaction-form">
-          <label class="field">What was it for?
-            <input id="description" name="description" maxlength="60" placeholder="e.g. Coffee with Sam" required />
+          <label class="field"><span>Note <span class="optional-note">(optional)</span></span>
+            <input id="description" name="description" maxlength="60" placeholder="e.g. Coffee with Sam" />
           </label>
           <div class="form-row">
             <label class="field">Type
@@ -486,12 +600,17 @@
         const stored = localStorage.getItem(storageKey);
         let transactions = stored === null ? seedTransactions : JSON.parse(stored);
         if (!Array.isArray(transactions)) throw new Error("Saved transactions are not in the expected format.");
+        let selectedCategory = null;
 
         const formatMoney = (amount) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(amount);
         const escapeHTML = (value) => String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
         const formatDate = (value) => {
           const [year, month, day] = value.split("-").map(Number);
           return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(new Date(year, month - 1, day));
+        };
+        const parseDate = (value) => {
+          const [year, month, day] = value.split("-").map(Number);
+          return new Date(year, month - 1, day);
         };
         const isCurrentMonth = (transaction) => {
           const [year, month] = transaction.date.split("-").map(Number);
@@ -501,6 +620,49 @@
         const categoryIcon = (category) => icons[category] || icons.Other;
         const iconForCategory = (category) => `<span class="category-icon" aria-hidden="true">${categoryIcon(category)}</span>`;
         const persist = () => localStorage.setItem(storageKey, JSON.stringify(transactions));
+
+        function renderChart(expenses) {
+          const allDates = expenses.map((item) => parseDate(item.date).getTime()).sort((a, b) => a - b);
+          const isAllTime = document.getElementById("period-filter").value === "all";
+          let start = isAllTime && allDates.length
+            ? allDates[0]
+            : new Date(today.getFullYear(), today.getMonth(), 1).getTime();
+          let end = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
+          if (isAllTime && allDates.length) end = Math.max(end, allDates[allDates.length - 1]);
+          if (end < start) start = end;
+          const span = Math.max(end - start, 1);
+          const bucketTotals = new Array(14).fill(0);
+
+          expenses.forEach((item) => {
+            const date = parseDate(item.date).getTime();
+            const position = Math.max(0, Math.min(13, Math.round((date - start) / span * 13)));
+            bucketTotals[position] += Number(item.amount);
+          });
+
+          let cumulative = 0;
+          const values = bucketTotals.map((amount) => {
+            cumulative += amount;
+            return cumulative;
+          });
+          const maxValue = values[values.length - 1] || 1;
+          const points = values.map((value, index) => {
+            const x = index * (520 / 13);
+            const y = 96 - value / maxValue * 82;
+            return `${x.toFixed(1)} ${y.toFixed(1)}`;
+          });
+          const linePath = `M${points.join("L")}`;
+          document.getElementById("spending-chart-line").setAttribute("d", linePath);
+          document.getElementById("spending-chart-area").setAttribute("d", `${linePath}L520 105L0 105Z`);
+          const lastPoint = points[points.length - 1].split(" ");
+          document.getElementById("spending-chart-dot").setAttribute("cx", lastPoint[0]);
+          document.getElementById("spending-chart-dot").setAttribute("cy", lastPoint[1]);
+
+          const labels = document.querySelectorAll("#chart-labels span");
+          [0, 3, 6, 9, 13].forEach((pointIndex, labelIndex) => {
+            const date = new Date(start + span * pointIndex / 13);
+            labels[labelIndex].textContent = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(date);
+          });
+        }
 
         function render() {
           const selected = currentTransactions();
@@ -514,6 +676,7 @@
           document.getElementById("chart-total").textContent = formatMoney(expenseTotal);
           const periodLabel = document.getElementById("period-filter").value === "all" ? "All time" : "This month";
           document.getElementById("chart-period").textContent = periodLabel;
+          renderChart(expenses);
 
           const totalsByCategory = expenses.reduce((totals, item) => {
             totals[item.category] = (totals[item.category] || 0) + Number(item.amount);
@@ -523,15 +686,17 @@
           document.getElementById("category-list").innerHTML = categoryRows.length
             ? categoryRows.map(([name, amount]) => {
               const share = expenseTotal ? Math.max(4, amount / expenseTotal * 100) : 0;
-              return `<div class="category-row">${iconForCategory(name)}<div class="category-detail"><div class="category-name"><span>${escapeHTML(name)}</span><span>${Math.round(amount / expenseTotal * 100)}%</span></div><div class="category-bar"><span style="width:${share}%"></span></div></div><span class="category-amount">${formatMoney(amount)}</span></div>`;
+              return `<button class="category-row${selectedCategory === name ? " selected" : ""}" type="button" data-category="${escapeHTML(name)}" aria-pressed="${selectedCategory === name}">${iconForCategory(name)}<span class="category-detail"><span class="category-name"><span>${escapeHTML(name)}</span><span>${Math.round(amount / expenseTotal * 100)}%</span></span><span class="category-bar"><span style="width:${share}%"></span></span></span><span class="category-amount">${formatMoney(amount)}</span></button>`;
             }).join("")
             : '<div class="empty-state">Add an expense to see your categories.</div>';
 
-          const recent = [...selected].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 4);
+          const filteredTransactions = selected.filter((item) => selectedCategory === null || item.category === selectedCategory);
+          const recent = [...filteredTransactions].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 4);
+          document.getElementById("transactions-title").textContent = selectedCategory ? `${selectedCategory} transactions` : "Recent transactions";
           document.getElementById("transaction-list").innerHTML = recent.length
             ? recent.map((item) => `<div class="transaction">${iconForCategory(item.category)}<div><div class="transaction-name">${escapeHTML(item.name)}</div><div class="transaction-meta">${escapeHTML(item.category)} · ${formatDate(item.date)}</div></div><div class="transaction-amount ${item.type === "income" ? "income" : ""}">${item.type === "income" ? "+" : "−"}${formatMoney(Number(item.amount))}<button class="transaction-delete" type="button" data-delete="${escapeHTML(item.id)}" aria-label="Delete ${escapeHTML(item.name)}"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16m-10 4v6m4-6v6M6 7l1 14h10l1-14M9 7V4h6v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>`).join("")
             : '<div class="empty-state">No transactions here yet. Add one to get started.</div>';
-          document.getElementById("clear-filter").textContent = document.getElementById("period-filter").value === "all" ? "This month" : "View all";
+          document.getElementById("clear-filter").textContent = selectedCategory ? "Clear category" : document.getElementById("period-filter").value === "all" ? "This month" : "View all";
         }
 
         const dialog = document.getElementById("transaction-dialog");
@@ -551,13 +716,16 @@
           categorySelect.innerHTML = options.map((category) => `<option value="${escapeHTML(category)}">${escapeHTML(category)}</option>`).join("");
         };
 
-        document.getElementById("open-expense").addEventListener("click", () => {
+        const openTransactionDialog = () => {
           form.reset();
           document.getElementById("date").value = dateOffset(0);
           updateCategories();
           dialog.showModal();
           document.getElementById("description").focus();
-        });
+        };
+        document.getElementById("open-expense").addEventListener("click", openTransactionDialog);
+        document.getElementById("hero-add").addEventListener("click", openTransactionDialog);
+        document.getElementById("header-add").addEventListener("click", openTransactionDialog);
         document.querySelector(".close-dialog").addEventListener("click", () => dialog.close());
         dialog.addEventListener("click", (event) => {
           if (event.target === dialog) dialog.close();
@@ -573,10 +741,11 @@
             return;
           }
           document.getElementById("amount").setCustomValidity("");
+          const category = categorySelect.value;
           transactions.push({
             id: window.crypto.randomUUID ? window.crypto.randomUUID() : `${Date.now()}-${Math.random()}`,
-            name: document.getElementById("description").value.trim(),
-            category: categorySelect.value,
+            name: document.getElementById("description").value.trim() || category,
+            category,
             type: typeSelect.value,
             amount,
             date: document.getElementById("date").value
@@ -594,11 +763,22 @@
           render();
           showToast("Transaction removed.");
         });
+        document.getElementById("category-list").addEventListener("click", (event) => {
+          const button = event.target.closest("[data-category]");
+          if (!button) return;
+          selectedCategory = button.dataset.category;
+          render();
+          document.getElementById("transactions").scrollIntoView({ behavior: "smooth", block: "nearest" });
+        });
         document.getElementById("period-filter").addEventListener("change", render);
         document.getElementById("clear-filter").addEventListener("click", (event) => {
           event.preventDefault();
-          const filter = document.getElementById("period-filter");
-          filter.value = filter.value === "all" ? "month" : "all";
+          if (selectedCategory) {
+            selectedCategory = null;
+          } else {
+            const filter = document.getElementById("period-filter");
+            filter.value = filter.value === "all" ? "month" : "all";
+          }
           render();
         });
         document.querySelectorAll("[data-plan]").forEach((button) => {
