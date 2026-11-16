@@ -1,199 +1,624 @@
-make <!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Day 1 — Download Your First Budget Video</title>
+    <meta name="theme-color" content="#f7f8f4" />
+    <meta name="description" content="A calmer way to track spending, build better habits, and feel good about your money." />
+    <title>Pennywise — make room for what matters</title>
     <style>
       :root {
-        --bg: #0f172a;
-        --bg-soft: #111827;
-        --panel: rgba(15, 23, 42, 0.8);
-        --panel-border: rgba(148, 163, 184, 0.2);
-        --text: #e2e8f0;
-        --muted: #94a3b8;
-        --accent: #3ad7c4;
-        --accent-strong: #1cc4b3;
+        color-scheme: light;
+        --ink: #172b26;
+        --muted: #71817b;
+        --paper: #f7f8f4;
+        --white: #fff;
+        --line: #e7ece7;
+        --green: #2e735b;
+        --green-dark: #205b46;
+        --mint: #e2f0e9;
+        --lime: #d7ed9f;
+        --orange: #e8a36f;
+        --shadow: 0 18px 55px rgba(32, 63, 51, 0.08);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
 
       * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { margin: 0; background: var(--paper); color: var(--ink); }
+      a { color: inherit; text-decoration: none; }
+      button, input, select { font: inherit; }
+      button, a { -webkit-tap-highlight-color: transparent; }
+      button { cursor: pointer; }
+      .shell { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
+      .site-header { height: 82px; display: flex; align-items: center; justify-content: space-between; }
+      .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 19px; font-weight: 760; letter-spacing: -0.7px; }
+      .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 11px; background: var(--green); color: white; }
+      .brand-mark svg { width: 19px; height: 19px; }
+      .nav-links { display: flex; align-items: center; gap: 34px; color: #53655e; font-size: 14px; font-weight: 570; }
+      .nav-links a:hover { color: var(--green); }
+      .header-cta, .button { display: inline-flex; justify-content: center; align-items: center; gap: 8px; border: 0; border-radius: 10px; background: var(--green); color: white; font-weight: 680; transition: background .18s ease, transform .18s ease, box-shadow .18s ease; }
+      .header-cta { padding: 11px 17px; font-size: 13px; }
+      .button { padding: 13px 18px; font-size: 14px; }
+      .header-cta:hover, .button:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 8px 18px rgba(32, 91, 70, .16); }
+      .button svg { width: 16px; height: 16px; }
+      .hero { display: grid; grid-template-columns: 1fr; justify-items: center; padding: 69px 0 54px; text-align: center; }
+      .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--green); font-size: 11px; font-weight: 750; letter-spacing: 1.65px; text-transform: uppercase; }
+      .eyebrow-dot { width: 7px; height: 7px; border-radius: 50%; background: #78ae84; }
+      h1 { max-width: 760px; margin: 19px 0 14px; font-size: clamp(42px, 6vw, 68px); line-height: 1.02; letter-spacing: -4px; font-weight: 660; }
+      h1 span { color: var(--green); }
+      .hero-copy { max-width: 560px; margin: 0; color: var(--muted); font-size: 17px; line-height: 1.7; }
+      .hero-actions { display: flex; justify-content: center; align-items: center; gap: 17px; margin-top: 25px; }
+      .text-link { color: #52665c; font-size: 13px; font-weight: 650; }
+      .text-link:hover { color: var(--green); }
+      .trust-note { margin-top: 15px; color: #88948e; font-size: 11px; }
 
-      body {
-        margin: 0;
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        font-family: Arial, Helvetica, sans-serif;
-        background: radial-gradient(circle at top, #1e293b 0%, var(--bg) 45%, #020817 100%);
-        color: var(--text);
+      .app-preview { position: relative; margin-bottom: 95px; padding: 11px; border: 1px solid #e8ece6; border-radius: 20px; background: rgba(255,255,255,.62); box-shadow: 0 28px 80px rgba(37, 69, 54, .12); }
+      .app-window { min-height: 460px; display: grid; grid-template-columns: 195px 1fr; overflow: hidden; border: 1px solid #eef0ec; border-radius: 13px; background: #fff; }
+      .app-sidebar { padding: 24px 14px; border-right: 1px solid #edf0ec; background: #fcfdfa; }
+      .sidebar-brand { display: flex; align-items: center; gap: 8px; margin: 0 0 30px 7px; font-size: 13px; font-weight: 750; }
+      .sidebar-brand .brand-mark { width: 25px; height: 25px; border-radius: 8px; }
+      .sidebar-brand .brand-mark svg { width: 14px; height: 14px; }
+      .side-label { margin: 0 8px 9px; color: #9aa49f; font-size: 9px; font-weight: 720; letter-spacing: 1.1px; text-transform: uppercase; }
+      .side-nav { display: grid; gap: 5px; }
+      .side-nav a { display: flex; align-items: center; gap: 10px; padding: 10px 9px; border-radius: 8px; color: #78857e; font-size: 11px; font-weight: 590; }
+      .side-nav a svg { width: 15px; height: 15px; }
+      .side-nav a.active { background: #eaf3ed; color: var(--green); font-weight: 720; }
+      .sidebar-bottom { margin-top: 43px; padding: 13px; border-radius: 10px; background: #f2f6ef; }
+      .sidebar-bottom strong { display: block; font-size: 10px; }
+      .sidebar-bottom p { margin: 5px 0 0; color: var(--muted); font-size: 9px; line-height: 1.5; }
+      .app-main { min-width: 0; padding: 24px 27px 25px; }
+      .app-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+      .app-topbar h2 { margin: 0; font-size: 17px; letter-spacing: -.5px; }
+      .app-topbar p { margin: 4px 0 0; color: #89958e; font-size: 10px; }
+      .app-tools { display: flex; align-items: center; gap: 9px; }
+      .period-select { padding: 8px 10px; border: 1px solid var(--line); border-radius: 7px; color: #5f6e67; background: white; font-size: 10px; }
+      .add-button { display: inline-flex; align-items: center; gap: 6px; padding: 9px 11px; border: 0; border-radius: 7px; background: var(--green); color: white; font-size: 10px; font-weight: 680; }
+      .add-button:hover { background: var(--green-dark); }
+      .add-button svg { width: 13px; height: 13px; }
+      .summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 11px; }
+      .summary-card { min-width: 0; padding: 14px; border: 1px solid #edf0ec; border-radius: 10px; }
+      .summary-label { display: flex; align-items: center; justify-content: space-between; color: #75827b; font-size: 10px; }
+      .summary-label svg { width: 15px; height: 15px; color: #87958e; }
+      .summary-value { display: block; margin-top: 12px; font-size: clamp(17px, 2.2vw, 23px); font-weight: 700; letter-spacing: -.8px; white-space: nowrap; }
+      .summary-foot { display: flex; align-items: center; gap: 4px; margin-top: 6px; color: #8b9690; font-size: 9px; }
+      .summary-foot .positive { color: #508765; font-weight: 650; }
+      .dashboard-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(205px, .85fr); gap: 12px; margin-top: 12px; }
+      .panel { min-width: 0; padding: 15px; border: 1px solid #edf0ec; border-radius: 10px; }
+      .panel-heading { display: flex; justify-content: space-between; align-items: center; }
+      .panel-heading h3 { margin: 0; font-size: 11px; font-weight: 720; }
+      .panel-heading span { color: #9aa49e; font-size: 9px; }
+      .chart-total { margin: 14px 0 0; font-size: 20px; font-weight: 690; letter-spacing: -.7px; }
+      .chart-caption { margin: 3px 0 0; color: #97a19b; font-size: 9px; }
+      .chart { width: 100%; height: 99px; display: block; margin-top: 8px; overflow: visible; }
+      .chart-labels { display: flex; justify-content: space-between; color: #9aa49e; font-size: 8px; }
+      .category-list { display: grid; gap: 14px; margin-top: 20px; }
+      .category-row { display: grid; grid-template-columns: 25px 1fr auto; align-items: center; gap: 8px; }
+      .category-icon { display: grid; width: 25px; height: 25px; place-items: center; border-radius: 7px; background: #f1f5ef; color: #607c68; }
+      .category-icon svg { width: 13px; height: 13px; }
+      .category-detail { min-width: 0; }
+      .category-name { display: flex; justify-content: space-between; color: #53635b; font-size: 9px; }
+      .category-bar { height: 4px; margin-top: 5px; overflow: hidden; border-radius: 8px; background: #edf1ec; }
+      .category-bar span { display: block; height: 100%; border-radius: inherit; background: #8ab59a; }
+      .category-amount { color: #506159; font-size: 9px; font-weight: 650; }
+      .transactions-panel { margin-top: 12px; padding: 0; overflow: hidden; }
+      .transactions-head { padding: 14px 15px 11px; }
+      .transactions-head a { color: var(--green); font-size: 9px; font-weight: 650; }
+      .transaction-list { display: grid; }
+      .transaction { display: grid; grid-template-columns: 27px minmax(0,1fr) auto; align-items: center; gap: 8px; padding: 9px 15px; border-top: 1px solid #f1f3f0; }
+      .transaction-name { overflow: hidden; color: #4c5d54; font-size: 9px; font-weight: 620; text-overflow: ellipsis; white-space: nowrap; }
+      .transaction-meta { margin-top: 3px; color: #a0aaa4; font-size: 8px; }
+      .transaction-amount { color: #354940; font-size: 9px; font-weight: 690; white-space: nowrap; }
+      .transaction-amount.income { color: #4e8962; }
+      .transaction-delete { width: 23px; height: 23px; display: grid; place-items: center; border: 0; border-radius: 6px; background: transparent; color: #a0aaa4; }
+      .transaction-delete:hover { background: #fbefec; color: #a14e3e; }
+      .transaction-delete svg { width: 12px; height: 12px; }
+      .empty-state { padding: 22px; color: var(--muted); text-align: center; font-size: 11px; }
+      .app-footnote { margin: 11px 0 0; color: #9aa49e; text-align: center; font-size: 9px; }
+
+      .section { padding: 76px 0; border-top: 1px solid #e9ede7; }
+      .section-heading { max-width: 610px; margin: 0 auto 37px; text-align: center; }
+      .section-heading h2 { margin: 12px 0 9px; font-size: clamp(29px, 4vw, 43px); letter-spacing: -2px; line-height: 1.12; }
+      .section-heading p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+      .feature-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+      .feature-card { padding: 23px; border: 1px solid #e7ebe5; border-radius: 13px; background: rgba(255,255,255,.55); }
+      .feature-icon { display: grid; width: 39px; height: 39px; place-items: center; border-radius: 11px; background: var(--mint); color: var(--green); }
+      .feature-icon svg { width: 19px; height: 19px; }
+      .feature-card h3 { margin: 19px 0 8px; font-size: 15px; letter-spacing: -.3px; }
+      .feature-card p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+
+      .pricing-section { padding-top: 79px; padding-bottom: 92px; background: #f0f4ee; }
+      .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; align-items: stretch; }
+      .price-card { position: relative; display: flex; flex-direction: column; padding: 24px; border: 1px solid #e1e8df; border-radius: 14px; background: #fff; }
+      .price-card.featured { border: 1.5px solid #6b9b7c; box-shadow: 0 14px 38px rgba(53, 105, 72, .11); }
+      .popular-label { position: absolute; top: -12px; right: 18px; padding: 5px 9px; border-radius: 20px; background: var(--green); color: white; font-size: 9px; font-weight: 720; letter-spacing: .3px; }
+      .plan-name { margin: 0; font-size: 14px; font-weight: 720; }
+      .plan-description { min-height: 35px; margin: 7px 0 17px; color: var(--muted); font-size: 11px; line-height: 1.6; }
+      .price { display: flex; align-items: baseline; gap: 5px; }
+      .price strong { font-size: 34px; letter-spacing: -1.7px; }
+      .price span { color: #8a9690; font-size: 11px; }
+      .billing-note { min-height: 17px; margin: 4px 0 17px; color: #829087; font-size: 10px; }
+      .plan-button { width: 100%; padding: 11px; border: 1px solid #dfe7df; border-radius: 8px; background: white; color: #385448; font-size: 11px; font-weight: 700; }
+      .price-card.featured .plan-button { border-color: var(--green); background: var(--green); color: white; }
+      .plan-button:hover { border-color: var(--green-dark); background: var(--green-dark); color: white; }
+      .plan-divider { height: 1px; margin: 19px 0 15px; background: #edf0eb; }
+      .plan-includes { margin: 0 0 10px; color: #6d7b73; font-size: 10px; font-weight: 680; }
+      .plan-features { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+      .plan-features li { display: flex; align-items: flex-start; gap: 8px; color: #68776f; font-size: 10px; line-height: 1.45; }
+      .plan-features svg { width: 13px; height: 13px; flex: 0 0 auto; color: #6b9b7c; }
+      .pricing-note { margin: 20px 0 0; color: #8b9790; text-align: center; font-size: 10px; }
+      .final-cta { padding: 58px 25px 64px; text-align: center; }
+      .final-cta h2 { margin: 0 0 10px; font-size: clamp(26px,4vw,38px); letter-spacing: -1.5px; }
+      .final-cta p { margin: 0 auto 20px; color: var(--muted); font-size: 13px; }
+      footer { padding: 20px 0; border-top: 1px solid #e9ede7; color: #849087; font-size: 10px; }
+      .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+      .footer-links { display: flex; gap: 18px; }
+
+      dialog { width: min(430px, calc(100% - 30px)); padding: 0; border: 1px solid #e5eae3; border-radius: 16px; box-shadow: 0 25px 90px rgba(18, 38, 29, .24); color: var(--ink); }
+      dialog::backdrop { background: rgba(20, 38, 30, .38); backdrop-filter: blur(3px); }
+      .dialog-content { padding: 25px; }
+      .dialog-header { display: flex; justify-content: space-between; align-items: flex-start; }
+      .dialog-header h2 { margin: 0; font-size: 21px; letter-spacing: -.6px; }
+      .dialog-header p { margin: 6px 0 0; color: var(--muted); font-size: 12px; }
+      .close-dialog { width: 30px; height: 30px; border: 0; border-radius: 8px; background: #f2f5f1; color: #56675e; font-size: 18px; }
+      .expense-form { display: grid; gap: 14px; margin-top: 23px; }
+      .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .field { display: grid; gap: 6px; color: #58685f; font-size: 11px; font-weight: 650; }
+      .field input, .field select { width: 100%; padding: 10px 11px; border: 1px solid #dfe6de; border-radius: 8px; outline: none; background: white; color: var(--ink); font-size: 12px; }
+      .field input:focus, .field select:focus { border-color: #6b9b7c; box-shadow: 0 0 0 3px rgba(107, 155, 124, .13); }
+      .form-submit { width: 100%; margin-top: 3px; }
+      .toast { position: fixed; right: 22px; bottom: 22px; z-index: 3; max-width: min(390px, calc(100% - 44px)); padding: 13px 17px; border: 1px solid #d9e7da; border-radius: 10px; background: white; box-shadow: var(--shadow); color: #3b5747; font-size: 12px; opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity .2s, transform .2s; }
+      .toast.visible { opacity: 1; transform: translateY(0); }
+      .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+      @media (max-width: 760px) {
+        .shell { width: min(100% - 32px, 600px); }
+        .site-header { height: 70px; }
+        .nav-links { gap: 16px; font-size: 12px; }
+        .nav-links a:nth-child(1) { display: none; }
+        .header-cta { padding: 10px 12px; }
+        .hero { padding: 54px 0 38px; }
+        h1 { letter-spacing: -2.7px; }
+        .app-preview { margin-bottom: 67px; padding: 7px; }
+        .app-window { grid-template-columns: 1fr; }
+        .app-sidebar { display: none; }
+        .app-main { padding: 19px 15px; }
+        .dashboard-grid { grid-template-columns: 1fr; }
+        .category-list { grid-template-columns: 1fr 1fr; gap: 12px; }
+        .feature-grid { grid-template-columns: 1fr; }
+        .feature-card { padding: 19px; }
+        .section { padding: 58px 0; }
+        .pricing-section { padding: 61px 0; }
+        .pricing-grid { grid-template-columns: 1fr; gap: 20px; }
+        .price-card { padding: 22px; }
+        .plan-description { min-height: 0; }
       }
-
-      .card {
-        width: min(1120px, calc(100vw - 2rem));
-        background: var(--panel);
-        border: 1px solid var(--panel-border);
-        border-radius: 24px;
-        box-shadow: 0 30px 80px rgba(15, 23, 42, 0.45);
-        padding: 2rem;
+      @media (max-width: 440px) {
+        .shell { width: calc(100% - 26px); }
+        .nav-links { gap: 11px; }
+        .nav-links a:nth-child(2) { display: none; }
+        .brand { font-size: 17px; }
+        .hero-actions { flex-direction: column; gap: 12px; }
+        .hero-copy { font-size: 15px; }
+        .app-topbar { align-items: flex-start; gap: 8px; }
+        .app-tools { flex-direction: column-reverse; align-items: flex-end; }
+        .summary-grid { gap: 6px; }
+        .summary-card { padding: 10px 8px; }
+        .summary-label { font-size: 8px; }
+        .summary-value { font-size: 16px; }
+        .summary-foot { font-size: 7px; }
+        .category-list { grid-template-columns: 1fr; }
+        .footer-inner { align-items: flex-start; flex-direction: column; }
       }
-
-      .eyebrow {
-        text-transform: uppercase;
-        letter-spacing: 0.14em;
-        color: var(--accent);
-        font-size: 0.7rem;
-        font-weight: 700;
-        margin-bottom: 0.75rem;
-      }
-
-      h1 {
-        margin: 0 0 0.75rem;
-        font-size: clamp(2rem, 4vw, 3.25rem);
-      }
-
-      p {
-        margin: 0 0 1.5rem;
-        color: var(--muted);
-        line-height: 1.6;
-      }
-
-      .actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        margin-bottom: 2rem;
-      }
-
-      .button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.9rem 1.25rem;
-        border-radius: 12px;
-        text-decoration: none;
-        font-weight: 700;
-        transition: transform 0.2s ease, opacity 0.2s ease;
-      }
-
-      .button:hover {
-        transform: translateY(-1px);
-      }
-
-      .button.primary {
-        background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-        color: #06292d;
-      }
-
-      .button.secondary {
-        border: 1px solid var(--panel-border);
-        color: var(--text);
-        background: rgba(15, 23, 42, 0.5);
-      }
-
-      .preview {
-        overflow: hidden;
-        border: 1px solid var(--panel-border);
-        border-radius: 18px;
-        background: rgba(17, 24, 39, 0.8);
-      }
-
-      .divider {
-        height: 1px;
-        background: rgba(148, 163, 184, 0.2);
-        margin: 2rem 0;
-      }
-
-      .video-wrap {
-        overflow: hidden;
-        border: 1px solid var(--panel-border);
-        border-radius: 18px;
-        background: rgba(17, 24, 39, 0.8);
-        margin-top: 1rem;
-      }
-
-      .package-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1.2fr) minmax(240px, 0.8fr);
-        gap: 1rem;
-        align-items: start;
-      }
-
-      .thumbnail-wrap {
-        overflow: hidden;
-        border: 1px solid var(--panel-border);
-        border-radius: 18px;
-        background: rgba(17, 24, 39, 0.8);
-      }
-
-      .details {
-        padding: 1rem;
-        border: 1px solid var(--panel-border);
-        border-radius: 14px;
-        background: rgba(17, 24, 39, 0.5);
-      }
-
-      .details h3 { margin: 0 0 0.5rem; }
-      .details p { margin-bottom: 0; font-size: 0.9rem; }
-      .package-actions { margin-top: 1rem; margin-bottom: 1rem; }
-
-      img, video {
-        display: block;
-        width: 100%;
-        height: auto;
-        background: var(--bg-soft);
-      }
-
-      @media (max-width: 700px) {
-        .card { padding: 1.25rem; }
-        .package-grid { grid-template-columns: 1fr; }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
       }
     </style>
   </head>
   <body>
-    <main class="card">
-      <div class="eyebrow">Money, Made Clear</div>
-      <h1>Your Day 1 video is ready</h1>
-      <p>Watch the 10-minute beginner guide below, or download the MP4 to your Mac. You can also get the complete YouTube upload kit with one click.</p>
+    <header class="site-header shell">
+      <a class="brand" href="#" aria-label="Pennywise home">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 18V8.5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1V18M3.5 18h17M8 7.5V5.8a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v1.7M9 12h6M9 15h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        Pennywise
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#tracker">The tracker</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+      </nav>
+      <a class="header-cta" href="#tracker">Try it free <span aria-hidden="true">→</span></a>
+    </header>
 
-      <div class="actions">
-        <a class="button primary" href="https://github.com/filscadet11-glitch/lolzai.io/releases/latest/download/day-1-first-budget.mp4">Download the new video for Mac</a>
-        <a class="button secondary" href="https://github.com/filscadet11-glitch/lolzai.io/releases/latest/download/day-1-first-budget-upload-kit.zip">Download the complete upload kit</a>
-      </div>
-
-      <div class="eyebrow">DAY 1 · 10-MINUTE VIDEO</div>
-      <h2>How to Make Your First Budget</h2>
-      <p>A calm, beginner-friendly guide to planning your first budget, with a matching YouTube thumbnail and captions.</p>
-
-      <div class="actions package-actions">
-        <a class="button primary" href="https://github.com/filscadet11-glitch/lolzai.io/releases/latest/download/day-1-first-budget.mp4">Download MP4</a>
-        <a class="button secondary" href="./day-1-first-budget-thumbnail.png" download>Download thumbnail</a>
-        <a class="button secondary" href="./day-1-first-budget-captions.srt" download>Download captions</a>
-        <a class="button secondary" href="./day-1-first-budget-description.txt" download>Download title &amp; description</a>
-      </div>
-
-      <div class="package-grid">
-        <div class="video-wrap">
-          <video controls preload="metadata" poster="./day-1-first-budget-thumbnail.png" src="https://github.com/filscadet11-glitch/lolzai.io/releases/latest/download/day-1-first-budget.mp4"></video>
+    <main>
+      <section class="hero shell">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> A little more mindful, every day</div>
+        <h1>Make room for<br /><span>what matters.</span></h1>
+        <p class="hero-copy">A refreshingly simple way to see where your money goes, find your rhythm, and feel good about what comes next.</p>
+        <div class="hero-actions">
+          <a class="button" href="#tracker">Explore your dashboard <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="text-link" href="#pricing">See simple pricing ↓</a>
         </div>
-        <div>
-          <div class="thumbnail-wrap">
-            <img src="./day-1-first-budget-thumbnail.png" alt="Day 1 YouTube thumbnail: Your First Budget" />
-          </div>
-          <div class="details">
-            <h3>Download on your Mac</h3>
-            <p>Click <b>Download MP4</b> and find the video in your Downloads folder. The complete kit includes the 1280 × 720 thumbnail, captions, title, description, and editable script.</p>
+        <div class="trust-note">Free to start · No bank connection needed · Your data stays on this device</div>
+      </section>
+
+      <section class="app-preview shell" id="tracker" aria-label="Interactive expense tracker preview">
+        <div class="app-window">
+          <aside class="app-sidebar" aria-label="Dashboard navigation">
+            <div class="sidebar-brand">
+              <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 18V8.5a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1V18M3.5 18h17M8 7.5V5.8a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v1.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              Pennywise
+            </div>
+            <p class="side-label">Workspace</p>
+            <nav class="side-nav">
+              <a class="active" href="#tracker"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="4" width="6" height="7" rx="1" stroke="currentColor" stroke-width="1.7"/><rect x="14" y="4" width="6" height="4" rx="1" stroke="currentColor" stroke-width="1.7"/><rect x="14" y="12" width="6" height="8" rx="1" stroke="currentColor" stroke-width="1.7"/><rect x="4" y="15" width="6" height="5" rx="1" stroke="currentColor" stroke-width="1.7"/></svg>Overview</a>
+              <a href="#transactions"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 4h10M7 8h10M7 12h10M7 16h6M5 3v18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Transactions</a>
+              <a href="#features"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 19V9m5 10V5m5 14v-7m5 7V3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Insights</a>
+            </nav>
+            <div class="sidebar-bottom">
+              <strong>A little progress adds up.</strong>
+              <p>Every entry is a step toward knowing your money better.</p>
+            </div>
+          </aside>
+
+          <div class="app-main">
+            <div class="app-topbar">
+              <div>
+                <h2>Your money, at a glance</h2>
+                <p id="dashboard-date">A clearer picture starts here.</p>
+              </div>
+              <div class="app-tools">
+                <label class="sr-only" for="period-filter">Show transactions for</label>
+                <select class="period-select" id="period-filter">
+                  <option value="month">This month</option>
+                  <option value="all">All time</option>
+                </select>
+                <button class="add-button" id="open-expense" type="button"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14m-7-7h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Add transaction</button>
+              </div>
+            </div>
+            <div class="summary-grid" aria-live="polite">
+              <article class="summary-card">
+                <div class="summary-label">Net balance <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 17 9 12l4 4 7-8M14 8h6v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <strong class="summary-value" id="balance-value">$0.00</strong>
+                <div class="summary-foot"><span class="positive">Looking good</span><span>· income minus expenses</span></div>
+              </article>
+              <article class="summary-card">
+                <div class="summary-label">Money in <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <strong class="summary-value" id="income-value">$0.00</strong>
+                <div class="summary-foot">Income in this period</div>
+              </article>
+              <article class="summary-card">
+                <div class="summary-label">Money out <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14m6-6-6 6-6-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <strong class="summary-value" id="expense-value">$0.00</strong>
+                <div class="summary-foot">Expenses in this period</div>
+              </article>
+            </div>
+
+            <div class="dashboard-grid">
+              <article class="panel">
+                <div class="panel-heading"><h3>Spending overview</h3><span id="chart-period">This month</span></div>
+                <p class="chart-total" id="chart-total">$0.00</p>
+                <p class="chart-caption">Total expenses for the selected period</p>
+                <svg class="chart" viewBox="0 0 520 105" preserveAspectRatio="none" role="img" aria-label="Illustrative spending trend">
+                  <defs><linearGradient id="chart-fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#8ab59a" stop-opacity=".24"/><stop offset="1" stop-color="#8ab59a" stop-opacity="0"/></linearGradient></defs>
+                  <path d="M0 79 C35 69 44 76 72 60 S120 68 151 53 S194 56 222 44 S258 58 287 38 S328 48 359 30 S407 46 436 23 S487 31 520 12 L520 105 L0 105Z" fill="url(#chart-fill)"/>
+                  <path d="M0 79 C35 69 44 76 72 60 S120 68 151 53 S194 56 222 44 S258 58 287 38 S328 48 359 30 S407 46 436 23 S487 31 520 12" fill="none" stroke="#6b9b7c" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+                  <path d="M0 100H520M0 68H520M0 36H520" stroke="#edf1ec" stroke-width="1" vector-effect="non-scaling-stroke"/>
+                  <circle cx="436" cy="23" r="4" fill="white" stroke="#6b9b7c" stroke-width="2" vector-effect="non-scaling-stroke"/>
+                </svg>
+                <div class="chart-labels"><span>Nov 1</span><span>Nov 8</span><span>Nov 15</span><span>Nov 22</span><span>Nov 30</span></div>
+              </article>
+              <article class="panel">
+                <div class="panel-heading"><h3>Where it goes</h3><span>By category</span></div>
+                <div class="category-list" id="category-list"></div>
+              </article>
+            </div>
+
+            <article class="panel transactions-panel" id="transactions">
+              <div class="panel-heading transactions-head"><h3>Recent transactions</h3><a href="#transactions" id="clear-filter">View all</a></div>
+              <div class="transaction-list" id="transaction-list" aria-live="polite"></div>
+            </article>
+            <p class="app-footnote">Your entries are saved in this browser only. No account or bank connection needed.</p>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div class="divider" aria-hidden="true"></div>
+      <section class="section" id="features">
+        <div class="shell">
+          <div class="section-heading">
+            <div class="eyebrow"><span class="eyebrow-dot"></span> A simpler kind of money app</div>
+            <h2>Small steps. A clearer picture.</h2>
+            <p>Everything you need to build a money habit that feels like yours—without the noise.</p>
+          </div>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16M4 10h10M4 15h7m6-2 2 2 4-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <h3>Know where it goes</h3>
+              <p>Add everyday expenses in seconds and see your spending grouped into simple, useful categories.</p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 18V9m5 9V5m5 13v-6m6 6V3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+              <h3>See the whole story</h3>
+              <p>Get a calm overview of money in, money out, and your balance—all in one thoughtful dashboard.</p>
+            </article>
+            <article class="feature-card">
+              <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3.8 14.5 9l5.7.8-4.1 4 .9 5.7-5-2.7-5 2.7.9-5.7-4.1-4L9.5 9 12 3.8Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <h3>Make it a habit</h3>
+              <p>No complicated setup or bank link. Start with what you know, and keep moving at your own pace.</p>
+            </article>
+          </div>
+        </div>
+      </section>
 
-      <div class="eyebrow">MORE CHANNEL ASSETS</div>
-      <p>Download the channel banner for your YouTube channel.</p>
-      <div class="actions">
-        <a class="button secondary" href="./channel-banner-download.zip" download="channel-banner-download.zip">Download channel banner</a>
-        <a class="button secondary" href="./channel-banner-download.png" download="channel-banner-download.png">Download banner PNG</a>
-      </div>
+      <section class="section pricing-section" id="pricing">
+        <div class="shell">
+          <div class="section-heading">
+            <div class="eyebrow"><span class="eyebrow-dot"></span> Straightforward by design</div>
+            <h2>A plan that feels right.</h2>
+            <p>Start free. Upgrade when you’re ready for a little more room to grow.</p>
+          </div>
+          <div class="pricing-grid">
+            <article class="price-card">
+              <h3 class="plan-name">Free</h3>
+              <p class="plan-description">A lovely place to start getting to know your money.</p>
+              <div class="price"><strong>$0</strong><span>forever</span></div>
+              <p class="billing-note">No card, no catch.</p>
+              <button class="plan-button" type="button" data-plan="Free">Get started free</button>
+              <div class="plan-divider"></div>
+              <p class="plan-includes">Everything for a fresh start</p>
+              <ul class="plan-features">
+                <li><svg viewBox="0 0 20 20" fill="none"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Track expenses and income</li>
+                <li><svg viewBox="0 0 20 20" fill="none"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Simple spending categories</li>
+                <li><svg viewBox="0 0 20 20" fill="none"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Monthly overview</li>
+                <li><svg viewBox="0 0 20 20" fill="none"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Saved on your device</li>
+              </ul>
+            </article>
+            <article class="price-card featured">
+              <span class="popular-label">MOST FLEXIBLE</span>
+              <h3 class="plan-name">Monthly</h3>
+              <p class="plan-description">More insights, billed month to month. Change your mind anytime.</p>
+              <div class="price"><strong>$5</strong><span>/ month</span></div>
+              <p class="billing-note">Billed monthly · cancel anytime</p>
+              <button class="plan-button" type="button" data-plan="Monthly">Choose monthly</button>
+              <div class="plan-divider"></div>
+              <p class="plan-includes">Everything in Free, plus</p>
+              <ul class="plan-features">
+                <li><svg viewBox="0 0 20 20" fill="none"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom monthly budgets</li>
+                <li><svg viewBox="0 0 20 20" fill="none"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Spending trends and insights</li>
+                <li><svg viewBox="0 0 20 20" fill="none"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Export your transactions</li>
+                <li><svg viewBox="0 0 20 20" fill="none"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Unlimited transaction history</li>
+              </ul>
+            </article>
+            <article class="price-card">
+              <h3 class="plan-name">Annual</h3>
+              <p class="plan-description">A full year of clarity, with a little thank-you for committing.</p>
+              <div class="price"><strong>$48</strong><span>/ year</span></div>
+              <p class="billing-note">Just $4 per month · save 20%</p>
+              <button class="plan-button" type="button" data-plan="Annual">Choose annual</button>
+              <div class="plan-divider"></div>
+              <p class="plan-includes">Everything in Monthly, plus</p>
+              <ul class="plan-features">
+                <li><svg viewBox="0 0 20 20" fill="none"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Save $12 over monthly billing</li>
+                <li><svg viewBox="0 0 20 20" fill="none"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Year-at-a-glance summaries</li>
+                <li><svg viewBox="0 0 20 20" fill="none"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Priority email support</li>
+                <li><svg viewBox="0 0 20 20" fill="none"><path d="m4 10 4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>One simple payment each year</li>
+              </ul>
+            </article>
+          </div>
+          <p class="pricing-note">All prices in USD. Paid plan checkout is not yet available; choosing a plan here is just a preview.</p>
+        </div>
+      </section>
+
+      <section class="final-cta shell">
+        <h2>One little step is enough.</h2>
+        <p>Start with today. The rest can wait.</p>
+        <a class="button" href="#tracker">Start tracking for free <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </section>
     </main>
+    <footer>
+      <div class="shell footer-inner">
+        <span>© <span id="year"></span> Pennywise. A little more mindful, every day.</span>
+        <span class="footer-links"><a href="#features">Features</a><a href="#pricing">Pricing</a></span>
+      </div>
+    </footer>
+
+    <dialog id="transaction-dialog" aria-labelledby="dialog-title">
+      <div class="dialog-content">
+        <div class="dialog-header">
+          <div><h2 id="dialog-title">Add a transaction</h2><p>A small note to help you keep track.</p></div>
+          <button class="close-dialog" type="button" aria-label="Close dialog">×</button>
+        </div>
+        <form class="expense-form" id="transaction-form">
+          <label class="field">What was it for?
+            <input id="description" name="description" maxlength="60" placeholder="e.g. Coffee with Sam" required />
+          </label>
+          <div class="form-row">
+            <label class="field">Type
+              <select id="type" name="type"><option value="expense">Expense</option><option value="income">Income</option></select>
+            </label>
+            <label class="field">Category
+              <select id="category" name="category"></select>
+            </label>
+          </div>
+          <div class="form-row">
+            <label class="field">Amount
+              <input id="amount" name="amount" type="number" min="0.01" max="1000000" step="0.01" placeholder="0.00" required />
+            </label>
+            <label class="field">Date
+              <input id="date" name="date" type="date" required />
+            </label>
+          </div>
+          <button class="button form-submit" type="submit">Save transaction</button>
+        </form>
+      </div>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      (() => {
+        const storageKey = "pennywise-transactions-v1";
+        const expenseCategories = ["Food & drink", "Shopping", "Housing", "Transport", "Bills", "Health", "Other"];
+        const incomeCategories = ["Salary", "Freelance", "Gift", "Other income"];
+        const icons = {
+          "Food & drink": '<svg viewBox="0 0 24 24" fill="none"><path d="M4 11h16l-1.3 8H5.3L4 11Zm2-1c0-3.3 2.7-6 6-6s6 2.7 6 6M9 14v2m6-2v2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+          Shopping: '<svg viewBox="0 0 24 24" fill="none"><path d="M5 8h14l1 12H4L5 8Zm4 0a3 3 0 0 1 6 0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+          Housing: '<svg viewBox="0 0 24 24" fill="none"><path d="m3 11 9-7 9 7v9h-6v-6H9v6H3v-9Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+          Transport: '<svg viewBox="0 0 24 24" fill="none"><path d="M5 16V9l2-4h10l2 4v7m-14 0h14M7 16v3m10-3v3M5 10h14m-11 3h.01M16 13h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+          Bills: '<svg viewBox="0 0 24 24" fill="none"><path d="M7 3h10v18l-2.5-2-2.5 2-2.5-2L7 21V3Zm3 5h4m-4 4h4m-4 4h2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+          Health: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 20s-8-4.8-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 9c0 6.2-8 11-8 11Zm0-11v6m-3-3h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+          Salary: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18m4-14c0-1.1-1.8-2-4-2S8 6 8 7s1.2 1.8 4 2 4 1 4 2-1.8 2-4 2-4-.9-4-2m0 6c0 1.1 1.8 2 4 2s4-.9 4-2-1.2-1.8-4-2-4-1-4-2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+          "Other income": '<svg viewBox="0 0 24 24" fill="none"><path d="M12 19V5m-6 6 6-6 6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+          "Other": '<svg viewBox="0 0 24 24" fill="none"><circle cx="5" cy="12" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="19" cy="12" r="1" fill="currentColor"/></svg>'
+        };
+        const today = new Date();
+        const dateOffset = (days) => {
+          const date = new Date(today.getFullYear(), today.getMonth(), today.getDate() - days);
+          return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+        };
+        const seedTransactions = [
+          { id: "seed-1", name: "Monthly paycheck", category: "Salary", type: "income", amount: 4800, date: dateOffset(1) },
+          { id: "seed-2", name: "Neighborhood market", category: "Food & drink", type: "expense", amount: 64.32, date: dateOffset(0) },
+          { id: "seed-3", name: "Apartment rent", category: "Housing", type: "expense", amount: 1200, date: dateOffset(3) },
+          { id: "seed-4", name: "Coffee with Sam", category: "Food & drink", type: "expense", amount: 8.5, date: dateOffset(4) },
+          { id: "seed-5", name: "Electric & internet", category: "Bills", type: "expense", amount: 110, date: dateOffset(6) },
+          { id: "seed-6", name: "Weekend groceries", category: "Food & drink", type: "expense", amount: 83.24, date: dateOffset(8) },
+          { id: "seed-7", name: "Train pass", category: "Transport", type: "expense", amount: 72, date: dateOffset(10) }
+        ];
+        const stored = localStorage.getItem(storageKey);
+        let transactions = stored === null ? seedTransactions : JSON.parse(stored);
+        if (!Array.isArray(transactions)) throw new Error("Saved transactions are not in the expected format.");
+
+        const formatMoney = (amount) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(amount);
+        const escapeHTML = (value) => String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
+        const formatDate = (value) => {
+          const [year, month, day] = value.split("-").map(Number);
+          return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(new Date(year, month - 1, day));
+        };
+        const isCurrentMonth = (transaction) => {
+          const [year, month] = transaction.date.split("-").map(Number);
+          return year === today.getFullYear() && month === today.getMonth() + 1;
+        };
+        const currentTransactions = () => document.getElementById("period-filter").value === "all" ? transactions : transactions.filter(isCurrentMonth);
+        const categoryIcon = (category) => icons[category] || icons.Other;
+        const iconForCategory = (category) => `<span class="category-icon" aria-hidden="true">${categoryIcon(category)}</span>`;
+        const persist = () => localStorage.setItem(storageKey, JSON.stringify(transactions));
+
+        function render() {
+          const selected = currentTransactions();
+          const expenses = selected.filter((item) => item.type === "expense");
+          const income = selected.filter((item) => item.type === "income");
+          const expenseTotal = expenses.reduce((sum, item) => sum + Number(item.amount), 0);
+          const incomeTotal = income.reduce((sum, item) => sum + Number(item.amount), 0);
+          document.getElementById("balance-value").textContent = formatMoney(incomeTotal - expenseTotal);
+          document.getElementById("income-value").textContent = formatMoney(incomeTotal);
+          document.getElementById("expense-value").textContent = formatMoney(expenseTotal);
+          document.getElementById("chart-total").textContent = formatMoney(expenseTotal);
+          const periodLabel = document.getElementById("period-filter").value === "all" ? "All time" : "This month";
+          document.getElementById("chart-period").textContent = periodLabel;
+
+          const totalsByCategory = expenses.reduce((totals, item) => {
+            totals[item.category] = (totals[item.category] || 0) + Number(item.amount);
+            return totals;
+          }, {});
+          const categoryRows = Object.entries(totalsByCategory).sort((a, b) => b[1] - a[1]).slice(0, 4);
+          document.getElementById("category-list").innerHTML = categoryRows.length
+            ? categoryRows.map(([name, amount]) => {
+              const share = expenseTotal ? Math.max(4, amount / expenseTotal * 100) : 0;
+              return `<div class="category-row">${iconForCategory(name)}<div class="category-detail"><div class="category-name"><span>${escapeHTML(name)}</span><span>${Math.round(amount / expenseTotal * 100)}%</span></div><div class="category-bar"><span style="width:${share}%"></span></div></div><span class="category-amount">${formatMoney(amount)}</span></div>`;
+            }).join("")
+            : '<div class="empty-state">Add an expense to see your categories.</div>';
+
+          const recent = [...selected].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 4);
+          document.getElementById("transaction-list").innerHTML = recent.length
+            ? recent.map((item) => `<div class="transaction">${iconForCategory(item.category)}<div><div class="transaction-name">${escapeHTML(item.name)}</div><div class="transaction-meta">${escapeHTML(item.category)} · ${formatDate(item.date)}</div></div><div class="transaction-amount ${item.type === "income" ? "income" : ""}">${item.type === "income" ? "+" : "−"}${formatMoney(Number(item.amount))}<button class="transaction-delete" type="button" data-delete="${escapeHTML(item.id)}" aria-label="Delete ${escapeHTML(item.name)}"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16m-10 4v6m4-6v6M6 7l1 14h10l1-14M9 7V4h6v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>`).join("")
+            : '<div class="empty-state">No transactions here yet. Add one to get started.</div>';
+          document.getElementById("clear-filter").textContent = document.getElementById("period-filter").value === "all" ? "This month" : "View all";
+        }
+
+        const dialog = document.getElementById("transaction-dialog");
+        const form = document.getElementById("transaction-form");
+        const typeSelect = document.getElementById("type");
+        const categorySelect = document.getElementById("category");
+        const toast = document.getElementById("toast");
+        let toastTimer;
+        const showToast = (message) => {
+          toast.textContent = message;
+          toast.classList.add("visible");
+          window.clearTimeout(toastTimer);
+          toastTimer = window.setTimeout(() => toast.classList.remove("visible"), 3300);
+        };
+        const updateCategories = () => {
+          const options = typeSelect.value === "income" ? incomeCategories : expenseCategories;
+          categorySelect.innerHTML = options.map((category) => `<option value="${escapeHTML(category)}">${escapeHTML(category)}</option>`).join("");
+        };
+
+        document.getElementById("open-expense").addEventListener("click", () => {
+          form.reset();
+          document.getElementById("date").value = dateOffset(0);
+          updateCategories();
+          dialog.showModal();
+          document.getElementById("description").focus();
+        });
+        document.querySelector(".close-dialog").addEventListener("click", () => dialog.close());
+        dialog.addEventListener("click", (event) => {
+          if (event.target === dialog) dialog.close();
+        });
+        typeSelect.addEventListener("change", updateCategories);
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          if (!form.reportValidity()) return;
+          const amount = Number(document.getElementById("amount").value);
+          if (!Number.isFinite(amount) || amount <= 0) {
+            document.getElementById("amount").setCustomValidity("Enter an amount greater than zero.");
+            document.getElementById("amount").reportValidity();
+            return;
+          }
+          document.getElementById("amount").setCustomValidity("");
+          transactions.push({
+            id: window.crypto.randomUUID ? window.crypto.randomUUID() : `${Date.now()}-${Math.random()}`,
+            name: document.getElementById("description").value.trim(),
+            category: categorySelect.value,
+            type: typeSelect.value,
+            amount,
+            date: document.getElementById("date").value
+          });
+          persist();
+          render();
+          dialog.close();
+          showToast("Transaction saved on this device.");
+        });
+        document.getElementById("transaction-list").addEventListener("click", (event) => {
+          const button = event.target.closest("[data-delete]");
+          if (!button) return;
+          transactions = transactions.filter((item) => String(item.id) !== button.dataset.delete);
+          persist();
+          render();
+          showToast("Transaction removed.");
+        });
+        document.getElementById("period-filter").addEventListener("change", render);
+        document.getElementById("clear-filter").addEventListener("click", (event) => {
+          event.preventDefault();
+          const filter = document.getElementById("period-filter");
+          filter.value = filter.value === "all" ? "month" : "all";
+          render();
+        });
+        document.querySelectorAll("[data-plan]").forEach((button) => {
+          button.addEventListener("click", () => {
+            const plan = button.dataset.plan;
+            if (plan === "Free") {
+              document.getElementById("tracker").scrollIntoView({ behavior: "smooth" });
+              showToast("Your free tracker is ready. Add a transaction to begin.");
+            } else {
+              showToast(`${plan} checkout is not connected yet. You can explore the tracker for free.`);
+            }
+          });
+        });
+
+        document.getElementById("dashboard-date").textContent = new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric" }).format(today);
+        document.getElementById("year").textContent = today.getFullYear();
+        persist();
+        render();
+        updateCategories();
+      })();
+    </script>
   </body>
 </html>
