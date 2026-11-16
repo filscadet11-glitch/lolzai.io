@@ -1,0 +1,199 @@
+make <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Day 1 — Download Your First Budget Video</title>
+    <style>
+      :root {
+        --bg: #0f172a;
+        --bg-soft: #111827;
+        --panel: rgba(15, 23, 42, 0.8);
+        --panel-border: rgba(148, 163, 184, 0.2);
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --accent: #3ad7c4;
+        --accent-strong: #1cc4b3;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        font-family: Arial, Helvetica, sans-serif;
+        background: radial-gradient(circle at top, #1e293b 0%, var(--bg) 45%, #020817 100%);
+        color: var(--text);
+      }
+
+      .card {
+        width: min(1120px, calc(100vw - 2rem));
+        background: var(--panel);
+        border: 1px solid var(--panel-border);
+        border-radius: 24px;
+        box-shadow: 0 30px 80px rgba(15, 23, 42, 0.45);
+        padding: 2rem;
+      }
+
+      .eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: var(--accent);
+        font-size: 0.7rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+      }
+
+      h1 {
+        margin: 0 0 0.75rem;
+        font-size: clamp(2rem, 4vw, 3.25rem);
+      }
+
+      p {
+        margin: 0 0 1.5rem;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.9rem 1.25rem;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 700;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+      }
+
+      .button.primary {
+        background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+        color: #06292d;
+      }
+
+      .button.secondary {
+        border: 1px solid var(--panel-border);
+        color: var(--text);
+        background: rgba(15, 23, 42, 0.5);
+      }
+
+      .preview {
+        overflow: hidden;
+        border: 1px solid var(--panel-border);
+        border-radius: 18px;
+        background: rgba(17, 24, 39, 0.8);
+      }
+
+      .divider {
+        height: 1px;
+        background: rgba(148, 163, 184, 0.2);
+        margin: 2rem 0;
+      }
+
+      .video-wrap {
+        overflow: hidden;
+        border: 1px solid var(--panel-border);
+        border-radius: 18px;
+        background: rgba(17, 24, 39, 0.8);
+        margin-top: 1rem;
+      }
+
+      .package-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(240px, 0.8fr);
+        gap: 1rem;
+        align-items: start;
+      }
+
+      .thumbnail-wrap {
+        overflow: hidden;
+        border: 1px solid var(--panel-border);
+        border-radius: 18px;
+        background: rgba(17, 24, 39, 0.8);
+      }
+
+      .details {
+        padding: 1rem;
+        border: 1px solid var(--panel-border);
+        border-radius: 14px;
+        background: rgba(17, 24, 39, 0.5);
+      }
+
+      .details h3 { margin: 0 0 0.5rem; }
+      .details p { margin-bottom: 0; font-size: 0.9rem; }
+      .package-actions { margin-top: 1rem; margin-bottom: 1rem; }
+
+      img, video {
+        display: block;
+        width: 100%;
+        height: auto;
+        background: var(--bg-soft);
+      }
+
+      @media (max-width: 700px) {
+        .card { padding: 1.25rem; }
+        .package-grid { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <div class="eyebrow">Money, Made Clear</div>
+      <h1>Your Day 1 video is ready</h1>
+      <p>Watch the 10-minute beginner guide below, or download the MP4 to your Mac. You can also get the complete YouTube upload kit with one click.</p>
+
+      <div class="actions">
+        <a class="button primary" href="https://github.com/filscadet11-glitch/lolzai.io/releases/latest/download/day-1-first-budget.mp4">Download the new video for Mac</a>
+        <a class="button secondary" href="https://github.com/filscadet11-glitch/lolzai.io/releases/latest/download/day-1-first-budget-upload-kit.zip">Download the complete upload kit</a>
+      </div>
+
+      <div class="eyebrow">DAY 1 · 10-MINUTE VIDEO</div>
+      <h2>How to Make Your First Budget</h2>
+      <p>A calm, beginner-friendly guide to planning your first budget, with a matching YouTube thumbnail and captions.</p>
+
+      <div class="actions package-actions">
+        <a class="button primary" href="https://github.com/filscadet11-glitch/lolzai.io/releases/latest/download/day-1-first-budget.mp4">Download MP4</a>
+        <a class="button secondary" href="./day-1-first-budget-thumbnail.png" download>Download thumbnail</a>
+        <a class="button secondary" href="./day-1-first-budget-captions.srt" download>Download captions</a>
+        <a class="button secondary" href="./day-1-first-budget-description.txt" download>Download title &amp; description</a>
+      </div>
+
+      <div class="package-grid">
+        <div class="video-wrap">
+          <video controls preload="metadata" poster="./day-1-first-budget-thumbnail.png" src="https://github.com/filscadet11-glitch/lolzai.io/releases/latest/download/day-1-first-budget.mp4"></video>
+        </div>
+        <div>
+          <div class="thumbnail-wrap">
+            <img src="./day-1-first-budget-thumbnail.png" alt="Day 1 YouTube thumbnail: Your First Budget" />
+          </div>
+          <div class="details">
+            <h3>Download on your Mac</h3>
+            <p>Click <b>Download MP4</b> and find the video in your Downloads folder. The complete kit includes the 1280 × 720 thumbnail, captions, title, description, and editable script.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider" aria-hidden="true"></div>
+
+      <div class="eyebrow">MORE CHANNEL ASSETS</div>
+      <p>Download the channel banner for your YouTube channel.</p>
+      <div class="actions">
+        <a class="button secondary" href="./channel-banner-download.zip" download="channel-banner-download.zip">Download channel banner</a>
+        <a class="button secondary" href="./channel-banner-download.png" download="channel-banner-download.png">Download banner PNG</a>
+      </div>
+    </main>
+  </body>
+</html>
