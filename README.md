@@ -17,4 +17,6 @@ The large MP4 and ZIP are GitHub Release assets so they can be downloaded withou
 - ./channel-banner-download.png
 
 ## Publishing
-GitHub Pages is configured to publish the `main` branch root. Upload updated large video deliverables as assets to a GitHub Release and keep the release asset filenames in sync with the download links in `index.html`.
+To make the website public, open the repository's **Settings → Pages**, choose **Deploy from a branch**, select `main` and `/(root)`, then save. GitHub will show the public Pages URL in the same settings page. The current download links use public GitHub Release assets.
+
+Upload updated large video deliverables as assets to a GitHub Release and keep the release asset filenames in sync with the download links in `index.html`.
